@@ -3,7 +3,7 @@
 </p>
 
 # Noisette - The nuts-breaker Obfuscator
-**Noisette (nuts in French) is aimed to be an open-source C# Obfuscator for .NET assembly built with ![dnlib](https://github.com/0xd4d/dnlib), GDI and my humble coding skills.** Noisette is the first .NET obfuscated meant to be nuts(breaker for both the decompiler and the hacker.
+**Noisette (nuts in French) is aimed to be an open-source C# Obfuscator for .NET assembly built with ![dnlib](https://github.com/0xd4d/dnlib), GDI and my humble coding skills.** Noisette is the first .NET obfuscated meant to be a nuts-breaker for both the decompiler and the hacker.
 
 <p align="center">
   <img src="http://i.imgur.com/3XDPL1N.png" alt="Noisette's GUI"/>

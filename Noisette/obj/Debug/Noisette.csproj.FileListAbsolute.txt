@@ -18,3 +18,5 @@ C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\No
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.csproj.GenerateResource.Cache
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.exe
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.csprojResolveAssemblyReference.cache
+C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\bin\Debug\Noisette.pdb
+C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.pdb

@@ -16,8 +16,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -61,11 +61,17 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvalidMD.cs" />
-    <Compile Include="N0isette.cs" />
+    <Compile Include="Protection\AntiTampering\AntiTamperingProtection.cs" />
+    <Compile Include="Protection\AntiTampering\EOFAntitamp.cs" />
+    <Compile Include="Protection\AntiTampering\Inject!Helper.cs" />
+    <Compile Include="Protection\ConstantOutlinning\ConstantOutlinningProtection.cs" />
+    <Compile Include="Protection\Invalid Metadata\InvalidMetadataProtection.cs" />
+    <Compile Include="Protection\Invalid Metadata\N0isette.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renaming.cs" />
+    <Compile Include="Protection\Renaming\RenamingArray.cs" />
+    <Compile Include="Protection\Renaming\RenamingProtection.cs" />
+    <Compile Include="Protection\StringEncoding\StringEncodingProtection.cs" />
     <Compile Include="Teme\Theme.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

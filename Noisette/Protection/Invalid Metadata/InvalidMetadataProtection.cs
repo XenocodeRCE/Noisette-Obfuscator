@@ -7,10 +7,19 @@ using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 using dnlib.DotNet.Writer;
 
-namespace Noisette
+namespace Noisette.Protection.InvalidMetadata
 {
-    class InvalidMD
+    public static class InvalidMD
     {
+
+        public static void InsertInvalidMetadata(ModuleDefMD module)
+        {
+            //todo: check for System.Reflection as it may break assembly if this protection is used
+
+            InvalidMD.process(module.Assembly);
+        }
+
+
         public static void process(AssemblyDef asm)
         {
             ModuleDef manifestModule = asm.ManifestModule;

@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using dnlib.DotNet;
-using dnlib.DotNet.Emit;
 using dnlib.DotNet.Writer;
-using Noisette.Core;
-using Type = Noisette.Core.Type;
 
 namespace Noisette
 {
@@ -21,6 +11,7 @@ namespace Noisette
     {
         #region Declarations
 
+        //todo : make a proper core.property class
         public string DirectoryName = "";
         public ModuleDefMD module;
         public static ModuleWriterOptions opts;
@@ -233,138 +224,31 @@ namespace Noisette
 
         public static void DoObfusction(ModuleDefMD module)
         {
+            //Prepare our mdulewriter for urther usage
+            //todo : make a pre and post processing class. i mean come on it's sloppy as fuck dude
             opts = new ModuleWriterOptions(module);
 
+
             //outline constant
-            OutlineConstant(module);
+            Protection.ConstantOutlinning.ConstantOutlinningProtection.OutlineConstant(module);
+            //Inject Antitamper class
+            Protection.AntiTampering.AntiTamperingProtection.AddCall(module);
             //rename all
-            RenameModule(module);
+            Protection.Renaming.RenamingProtection.RenameModule(module);
             //invalid metadata
-            InsertInvalidMetadata(module);
+            //Protection.InvalidMetadata.InvalidMD.InsertInvalidMetadata(module);
 
             //Save assembly
             opts.Logger = DummyLogger.NoThrowInstance;
+            //todo : make a propre saving function because now its ridiculous
             module.Write(module.Location + "_protected.exe", opts);
+            //post-stage antitamper
+            Protection.AntiTampering.AntiTamperingProtection.Md5(module.Location + "_protected.exe");
         }
-
-        public static void OutlineConstant(ModuleDefMD module)
-        {
-            /*Our arrays*/
-            //Constant
-            List<MethodDef> ProxyMethodConst = new List<MethodDef>();
-            //String
-            List<MethodDef> ProxyMethodStr = new List<MethodDef>();
-
-            foreach (TypeDef type in module.Types)
-            {
-                if (type.IsGlobalModuleType)
-                {
-                    continue;
-                }
-                for (int i = 0; i < type.Methods.Count; i++)
-                {
-                    MethodDef method = type.Methods[i];
-                    if (Helper.IsValidMethod(method) && (!ProxyMethodConst.Contains(method)))
-                    {
-                        for (int index = 0; index < method.Body.Instructions.Count; index++)
-                        {
-                            Instruction instr = method.Body.Instructions[index];
-                            if (instr.IsLdcI4())
-                            {
-                                MethodDef proxy_method = Core.Helper.CreateReturnMethodDef(instr.GetLdcI4Value(), method);
-                                type.Methods.Add(proxy_method);
-                                ProxyMethodConst.Add(proxy_method);
-                                instr.OpCode = OpCodes.Call;
-                                instr.Operand = proxy_method;
-                            }
-                            else if (instr.OpCode == OpCodes.Ldc_R4)
-                            {
-                                MethodDef proxy_method = Core.Helper.CreateReturnMethodDef(instr, method);
-                                type.Methods.Add(proxy_method);
-                                ProxyMethodConst.Add(proxy_method);
-                                instr.OpCode = OpCodes.Call;
-                                instr.Operand = proxy_method;
-                            }
-                            if (instr.Operand is string && instr.OpCode == OpCodes.Ldstr)
-                            {
-                                MethodDef proxy_method = Core.Helper.CreateReturnMethodDef(instr, method);
-                                type.Methods.Add(proxy_method);
-                                ProxyMethodConst.Add(proxy_method);
-                                instr.OpCode = OpCodes.Call;
-                                instr.Operand = proxy_method;
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-
-        public static void RenameModule(ModuleDefMD module)
-        {
-            List<String> Methname = new List<string>(Renaming.Method1);
-            List<String> Typename = new List<string>(Renaming.Type1);
-
-            Random random = new Random();
-
-            foreach (TypeDef type in module.Types)
-            {
-                if (type.IsGlobalModuleType) continue;
-                string new_name_type = Typename[random.Next(0, Typename.Count)];
-                Typename.Remove(new_name_type);
-                type.Name = new_name_type;
-                foreach (MethodDef method in type.Methods)
-                {
-                    if (method.IsConstructor) continue;
-                    if (!method.HasBody) continue;
-                    if (method.FullName.Contains("My.")) continue; //VB gives cancer anyway
-                    string new_name_meth = Methname[random.Next(0, Methname.Count)];
-                    Methname.Remove(new_name_meth);
-                    method.Name = new_name_meth;
-                    foreach (Parameter arg in method.Parameters)
-                    {
-                        string new_name_param = Methname[random.Next(0, Methname.Count)];
-                        Methname.Remove(new_name_param);
-                        arg.Name = new_name_param;
-                    }
-                    if (!method.Body.HasVariables) continue;
-                    foreach (var variable in method.Body.Variables)
-                    {
-                        string new_name_var = Methname[random.Next(0, Methname.Count)];
-                        Methname.Remove(new_name_var);
-                        variable.Name = new_name_var;
-                    }
-                }
-
-                foreach (PropertyDef prop in type.Properties)
-                {
-                    string new_name_property = Methname[random.Next(0, Methname.Count)];
-                    Methname.Remove(new_name_property);
-                    prop.Name = new_name_property;
-                }
-                foreach (FieldDef field in type.Fields)
-                {
-                    string new_name_fields = Methname[random.Next(0, Methname.Count)];
-                    Methname.Remove(new_name_fields);
-                    field.Name = new_name_fields;
-                }
-            }
-
-
-        }
-
-        public static void InsertInvalidMetadata(ModuleDefMD module)
-        {
-            //todo: check for System.Reflection as it may break assembly if this protection is used
-            
-            InvalidMD.process(module.Assembly);
-        }
-
 
         public static string tst()
         {
             return "test";
         }
-
     }
 }

@@ -31,7 +31,6 @@ namespace Noisette
 
     public class RoundButton : Button
     {
-        internal Graphics G;
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
             GraphicsPath grPath = new GraphicsPath();

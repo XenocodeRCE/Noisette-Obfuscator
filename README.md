@@ -26,6 +26,7 @@ For the moment, only a few, if you want a really strong ready-to-use Obfuscator 
 * Constant Outlinning
 - Strings Outlinning
 - Renaming
+- Invalid Metadata Injection
 
 ## Feature Requests
 Have an idea for an awesome feature you'd love to see ? Create an issue and tag it as a feature request.

@@ -22,15 +22,8 @@ namespace Noisette
         #region Declarations
 
         public string DirectoryName = "";
-        public int ConstantKey;
-        public int ConstantNum;
-        public MethodDef Methoddecryption;
-        public TypeDef Typedecryption;
-        public MethodDef MethodeResource;
-        public TypeDef TypeResource;
         public ModuleDefMD module;
-        public int x;
-        public int DeobedStringNumber;
+        public static ModuleWriterOptions opts;
 
         #endregion
 
@@ -214,18 +207,42 @@ namespace Noisette
         }
 
 
+
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Noisette - The nuts-breaker obfuscator"
+                + Environment.NewLine + 
+                "Made by XenocodeRCE - 2016"
+                + Environment.NewLine + 
+                "dnlib by 0xd4d");
+        }
+
         #endregion
 
 
         public static void DoObfusction(ModuleDefMD module)
         {
+            opts = new ModuleWriterOptions(module);
+
             //outline constant
             OutlineConstant(module);
-
-
             //rename all
             RenameModule(module);
-            var opts = new ModuleWriterOptions(module);
+            //invalid metadata
+            InsertInvalidMetadata(module);
+
+            //Save assembly
             opts.Logger = DummyLogger.NoThrowInstance;
             module.Write(module.Location + "_protected.exe", opts);
         }
@@ -283,19 +300,12 @@ namespace Noisette
             }
         }
 
-
         public static void RenameModule(ModuleDefMD module)
         {
             List<String> Methname = new List<string>(Renaming.Method1);
             List<String> Typename = new List<string>(Renaming.Type1);
 
             Random random = new Random();
-
-
-
-
-
-            //
 
             foreach (TypeDef type in module.Types)
             {
@@ -343,30 +353,18 @@ namespace Noisette
 
         }
 
+        public static void InsertInvalidMetadata(ModuleDefMD module)
+        {
+            //todo: check for System.Reflection as it may break assembly if this protection is used
+            
+            InvalidMD.process(module.Assembly);
+        }
+
+
         public static string tst()
         {
             return "test";
         }
 
-
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Noisette - The nuts-breaker obfuscator"
-                + Environment.NewLine + 
-                "Made by XenocodeRCE - 2016"
-                + Environment.NewLine + 
-                "dnlib by 0xd4d");
-        }
     }
 }

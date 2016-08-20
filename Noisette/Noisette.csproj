@@ -56,7 +56,6 @@
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Obfuscation\ObfuscationProcess.cs" />
     <Compile Include="Core\Property.cs" />
-    <Compile Include="Core\Type.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

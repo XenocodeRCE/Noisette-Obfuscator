@@ -1,3 +1,7 @@
 -créer un array et l'utiliser dans une méthode qui contiendras les constants d'autres méthodes
 -invok dynamique des méthodes via Reflection Emit
 -x86 encoded strings
+-use only one instance of a value in a method, else use ldlocx or stlocx
+-multi-scalling control flow
+-melt and burn variable through the entier method
+-use 3n+1 conjecture to return 1

@@ -14,8 +14,6 @@ namespace Noisette.Protection.InvalidMetadata
 
         public static void InsertInvalidMetadata(ModuleDefMD module)
         {
-            //todo: check for System.Reflection as it may break assembly if this protection is used
-
             InvalidMD.process(module.Assembly);
         }
 
@@ -39,6 +37,8 @@ namespace Noisette.Protection.InvalidMetadata
                 methodDef.MethodSig = new MethodSig();
                 foreach (MethodDef current2 in current.Methods)
                 {
+                    //If method has reflection assembly references
+                    if (Core.Property.ContainsReflectionReference.Contains(current2)) continue;
                     if (current2.Body != null)
                     {
                         current2.Body.SimplifyBranches();
@@ -99,11 +99,11 @@ namespace Noisette.Protection.InvalidMetadata
             manifestModule.Types.Add(typeDef3);
             manifestModule.TablesHeaderVersion = new ushort?(257);
 
-            MainForm.opts.MetaDataOptions.TablesHeapOptions.ExtraData = 0xd4d;
-            MainForm.opts.MetaDataOptions.TablesHeapOptions.UseENC = false;
-            MainForm.opts.MetaDataOptions.MetaDataHeaderOptions.VersionString =
-                MainForm.opts.MetaDataOptions.MetaDataHeaderOptions.VersionString + "№";
-            MainForm.opts.MetaDataOptions.OtherHeapsEnd.Add(new RawHeap("#Noisette", new byte[1]));
+            Core.Property.opts.MetaDataOptions.TablesHeapOptions.ExtraData = 0xd4d;
+            Core.Property.opts.MetaDataOptions.TablesHeapOptions.UseENC = false;
+            Core.Property.opts.MetaDataOptions.MetaDataHeaderOptions.VersionString =
+                Core.Property.opts.MetaDataOptions.MetaDataHeaderOptions.VersionString + "№";
+            Core.Property.opts.MetaDataOptions.OtherHeapsEnd.Add(new RawHeap("#Noisette", new byte[1]));
         }
 
         class RawHeap : HeapBase

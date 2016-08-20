@@ -9,14 +9,7 @@ namespace Noisette
 {
     public partial class MainForm : Form
     {
-        #region Declarations
-
-        //todo : make a proper core.property class
-        public string DirectoryName = "";
-        public ModuleDefMD module;
-        public static ModuleWriterOptions opts;
-
-        #endregion
+       
 
         #region Form_and_Design
 
@@ -118,18 +111,18 @@ namespace Noisette
                 logbox.AppendText("---------------------------" + Environment.NewLine);
 
 
-                DoObfusction(module);
+                Obfuscation.ObfuscationProcess.DoObfusction(module);
 
                 logbox.AppendText("Done ! :)" + Environment.NewLine);
 
                 int num2 = text.LastIndexOf("\\", StringComparison.Ordinal);
                 if (num2 != -1)
                 {
-                    DirectoryName = text.Remove(num2, text.Length - num2);
+                    Core.Property.DirectoryName = text.Remove(num2, text.Length - num2);
                 }
-                if (DirectoryName.Length == 2)
+                if (Core.Property.DirectoryName.Length == 2)
                 {
-                    DirectoryName += "\\";
+                    Core.Property.DirectoryName += "\\";
                 }
 
             }
@@ -222,33 +215,13 @@ namespace Noisette
         #endregion
 
 
-        public static void DoObfusction(ModuleDefMD module)
+       
+
+        public static void tst()
         {
-            //Prepare our mdulewriter for urther usage
-            //todo : make a pre and post processing class. i mean come on it's sloppy as fuck dude
-            opts = new ModuleWriterOptions(module);
-
-
-            //outline constant
-            Protection.ConstantOutlinning.ConstantOutlinningProtection.OutlineConstant(module);
-            //Inject Antitamper class
-            Protection.AntiTampering.AntiTamperingProtection.AddCall(module);
-            //rename all
-            Protection.Renaming.RenamingProtection.RenameModule(module);
-            //invalid metadata
-            //Protection.InvalidMetadata.InvalidMD.InsertInvalidMetadata(module);
-
-            //Save assembly
-            opts.Logger = DummyLogger.NoThrowInstance;
-            //todo : make a propre saving function because now its ridiculous
-            module.Write(module.Location + "_protected.exe", opts);
-            //post-stage antitamper
-            Protection.AntiTampering.AntiTamperingProtection.Md5(module.Location + "_protected.exe");
-        }
-
-        public static string tst()
-        {
-            return "test";
+            string test;
+            test = "test";
+            var abcd = test;
         }
     }
 }

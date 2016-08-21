@@ -66,6 +66,9 @@
     <Compile Include="Protection\AntiTampering\AntiTamperingProtection.cs" />
     <Compile Include="Protection\AntiTampering\EOFAntitamp.cs" />
     <Compile Include="Protection\AntiTampering\Inject!Helper.cs" />
+    <Compile Include="Protection\ConstantMelting\ConstantMeltingProtection.cs" />
+    <Compile Include="Protection\ConstantMutation\ConstantMutationProtection.cs" />
+    <Compile Include="Protection\ConstantMutation\Runtime\CollatzConjecture.cs" />
     <Compile Include="Protection\ConstantOutlinning\ConstantOutlinningProtection.cs" />
     <Compile Include="Protection\Invalid Metadata\InvalidMetadataProtection.cs" />
     <Compile Include="Protection\Invalid Metadata\N0isette.cs" />
@@ -125,6 +128,7 @@
   <ItemGroup>
     <Content Include="Hazelnut-64.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

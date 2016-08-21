@@ -18,14 +18,21 @@ namespace Noisette.Obfuscation
 
             //Prepare our mdulewriter for urther usage
             Core.Property.opts = new ModuleWriterOptions(module);
+            //Melt Constant
+            Protection.ConstantMelting.ConstantMeltingProtection.MeltConstant(module);
+            //Mutate Constant
+            Protection.ConstantMutation.ConstantMutationProtection.MutateConstant(module);
             //outline constant
             Protection.ConstantOutlinning.ConstantOutlinningProtection.OutlineConstant(module);
+            
+
+
             //Inject Antitamper class
             Protection.AntiTampering.AntiTamperingProtection.AddCall(module);
             //rename all
             Protection.Renaming.RenamingProtection.RenameModule(module);
             //invalid metadata
-            //Protection.InvalidMetadata.InvalidMD.InsertInvalidMetadata(module);
+            Protection.InvalidMetadata.InvalidMD.InsertInvalidMetadata(module);
 
             //Save assembly
             Core.Property.opts.Logger = DummyLogger.NoThrowInstance;

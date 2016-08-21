@@ -42,7 +42,7 @@ namespace Noisette
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            tst();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -105,13 +105,14 @@ namespace Noisette
                 //Activate();
 
                 textBox1.Text = text;
-                ModuleDefMD module = ModuleDefMD.Load(textBox1.Text);
+                Core.Property.module = ModuleDefMD.Load(textBox1.Text);
+
                 logbox.AppendText("---------------------------" + Environment.NewLine);
-                logbox.AppendText("Obfuscation process started on " + module.Name + Environment.NewLine);
+                logbox.AppendText("Obfuscation process started on " + Core.Property.module.Name + Environment.NewLine);
                 logbox.AppendText("---------------------------" + Environment.NewLine);
 
 
-                Obfuscation.ObfuscationProcess.DoObfusction(module);
+                Obfuscation.ObfuscationProcess.DoObfusction(Core.Property.module);
 
                 logbox.AppendText("Done ! :)" + Environment.NewLine);
 
@@ -128,7 +129,7 @@ namespace Noisette
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString(), @"¯\(ツ)/¯"); // because I trully doesn't care about your issue
 
                 //
                 textBox0.Visible = true;
@@ -156,8 +157,6 @@ namespace Noisette
         {
 
         }
-
-
 
         private void panel2_Paint_1(object sender, PaintEventArgs e)
         {
@@ -190,9 +189,6 @@ namespace Noisette
 
         }
 
-
-
-
         private void pictureBox6_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
@@ -213,15 +209,13 @@ namespace Noisette
         }
 
         #endregion
-
-
-       
+    
 
         public static void tst()
         {
-            string test;
-            test = "test";
-            var abcd = test;
+            bool test = false;
+            bool test2 = string.IsNullOrEmpty(string.Empty);
+
         }
     }
 }

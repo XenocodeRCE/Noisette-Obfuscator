@@ -39,24 +39,20 @@ namespace Noisette.Protection.AntiTampering
             //We call this method using the Call Opcode
             cctor.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, init));
 
-            foreach (MethodDef method in Protection.ConstantOutlinning.ConstantOutlinningProtection.ProxyMethodConst)
-            {
-                method.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Nop));
-                method.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, init));
-            }
-            foreach (TypeDef type in module.Types)
+            foreach (TypeDef type in Core.Property.module.Types)
             {
                 if (type.IsGlobalModuleType) continue;
                 foreach (MethodDef method in type.Methods)
                 {
-                    if (method.HasBody)
+                    if (!method.HasBody) continue;
+                    if (method.IsConstructor)
                     {
-                        if (method.FullName.Contains("My.")) continue; //VB gives cancer anyway
-                        
+                        method.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Nop));
+                        method.Body.Instructions.Insert(0, Instruction.Create(OpCodes.Call, init));
                     }
                 }
+                
             }
-
 
             //We just have to remove .ctor method because otherwise it will
             //lead to Global constructor error (e.g [MD]: Error: Global item (field,method) must be Static. [token:0x06000002] / [MD]: Error: Global constructor. [token:0x06000002] )

@@ -1,22 +1,20 @@
-﻿using System;
+﻿using dnlib.DotNet;
+using dnlib.DotNet.Emit;
+using dnlib.DotNet.Writer;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using dnlib.DotNet;
-using dnlib.DotNet.Emit;
-using dnlib.DotNet.Writer;
 
 namespace Noisette.Protection.InvalidMetadata
 {
     public static class InvalidMD
     {
-
         public static void InsertInvalidMetadata(ModuleDefMD module)
         {
             InvalidMD.process(module.Assembly);
         }
-
 
         public static void process(AssemblyDef asm)
         {
@@ -26,6 +24,7 @@ namespace Noisette.Protection.InvalidMetadata
             asm.ManifestModule.Import(new FieldDefUser(""));
             foreach (TypeDef current in manifestModule.Types)
             {
+                if (current.IsGlobalModuleType) continue;
                 TypeDef typeDef = new TypeDefUser("");
                 typeDef.Methods.Add(new MethodDefUser());
                 typeDef.NestedTypes.Add(new TypeDefUser(""));
@@ -88,7 +87,7 @@ namespace Noisette.Protection.InvalidMetadata
                     }
                 }
             }
-            TypeDef typeDef2 = new TypeDefUser("<<EMPTY_NAMES>>"); // name cannot be null 
+            TypeDef typeDef2 = new TypeDefUser("<<EMPTY_NAMES>>"); // name cannot be null
             FieldDef item2 = new FieldDefUser("Noisette", new FieldSig(manifestModule.Import(typeof(N0isette)).ToTypeSig()));
             typeDef2.Fields.Add(item2);
             typeDef2.BaseType = manifestModule.Import(typeof(N0isette));
@@ -106,10 +105,10 @@ namespace Noisette.Protection.InvalidMetadata
             Core.Property.opts.MetaDataOptions.OtherHeapsEnd.Add(new RawHeap("#Noisette", new byte[1]));
         }
 
-        class RawHeap : HeapBase
+        private class RawHeap : HeapBase
         {
-            readonly byte[] content;
-            readonly string name;
+            private readonly byte[] content;
+            private readonly string name;
 
             public RawHeap(string name, byte[] content)
             {

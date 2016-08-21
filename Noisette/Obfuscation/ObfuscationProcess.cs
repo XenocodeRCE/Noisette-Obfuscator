@@ -1,18 +1,17 @@
-﻿using System;
+﻿using dnlib.DotNet;
+using dnlib.DotNet.Writer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using dnlib.DotNet;
-using dnlib.DotNet.Writer;
 
 namespace Noisette.Obfuscation
 {
-    class ObfuscationProcess
+    internal class ObfuscationProcess
     {
-
         public static void DoObfusction(ModuleDefMD module)
         {
-            //Lets call the Pre Processing method to pass 
+            //Lets call the Pre Processing method to pass
             //some checkings and verifications before all :)
             Obfuscation.PreProcessing.AnalyzePhase();
 
@@ -24,8 +23,6 @@ namespace Noisette.Obfuscation
             Protection.ConstantMutation.ConstantMutationProtection.MutateConstant(module);
             //outline constant
             Protection.ConstantOutlinning.ConstantOutlinningProtection.OutlineConstant(module);
-            
-
 
             //Inject Antitamper class
             Protection.AntiTampering.AntiTamperingProtection.AddCall(module);
@@ -41,7 +38,5 @@ namespace Noisette.Obfuscation
             //post-stage antitamper
             Protection.AntiTampering.AntiTamperingProtection.Md5(module.Location + "_protected.exe");
         }
-
-
     }
 }

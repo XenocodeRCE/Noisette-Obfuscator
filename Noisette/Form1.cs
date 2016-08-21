@@ -1,17 +1,15 @@
-﻿using System;
+﻿using dnlib.DotNet;
+using dnlib.DotNet.Writer;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using dnlib.DotNet;
-using dnlib.DotNet.Writer;
 
 namespace Noisette
 {
     public partial class MainForm : Form
     {
-       
-
         #region Form_and_Design
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -48,7 +46,6 @@ namespace Noisette
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -69,10 +66,7 @@ namespace Noisette
         {
             try
             {
-
                 //
-
-
 
                 textBox0.Visible = false;
                 label5.Visible = false;
@@ -80,7 +74,6 @@ namespace Noisette
                 panel2.Visible = false;
                 shapedPanel1.Visible = false;
                 pictureBox5.Visible = false;
-
 
                 pictureBox4.Visible = true;
 
@@ -95,7 +88,7 @@ namespace Noisette
                 logbox.Visible = true;
                 logbox.BringToFront();
                 //
-                Array array = (Array) e.Data.GetData(DataFormats.FileDrop);
+                Array array = (Array)e.Data.GetData(DataFormats.FileDrop);
                 if (array == null) return;
                 string text = array.GetValue(0).ToString();
                 int num = text.LastIndexOf(".", StringComparison.Ordinal);
@@ -112,7 +105,6 @@ namespace Noisette
                 logbox.AppendText("Obfuscation process started on " + Core.Property.module.Name + Environment.NewLine);
                 logbox.AppendText("---------------------------" + Environment.NewLine);
 
-
                 Obfuscation.ObfuscationProcess.DoObfusction(Core.Property.module);
 
                 logbox.AppendText("Done ! :)" + Environment.NewLine);
@@ -126,7 +118,6 @@ namespace Noisette
                 {
                     Core.Property.DirectoryName += "\\";
                 }
-
             }
             catch (Exception ex)
             {
@@ -151,17 +142,14 @@ namespace Noisette
         private void textBox1_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
-
         }
 
         private void textBox0_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void panel2_Paint_1(object sender, PaintEventArgs e)
         {
-
             Point[] polygonPoints2 = new Point[5];
 
             polygonPoints2[0] = new Point(0, 0);
@@ -187,7 +175,6 @@ namespace Noisette
 
             e.Graphics.DrawPolygon(new Pen(new SolidBrush(Color.FromArgb(234, 228, 228))), polygonPoints);
             e.Graphics.FillPolygon(new SolidBrush(Color.FromArgb(234, 228, 228)), polygonPoints);
-
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
@@ -203,19 +190,17 @@ namespace Noisette
         private void label3_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Noisette - The nuts-breaker obfuscator"
-                + Environment.NewLine + 
+                + Environment.NewLine +
                 "Made by XenocodeRCE - 2016"
-                + Environment.NewLine + 
+                + Environment.NewLine +
                 "dnlib by 0xd4d");
         }
 
-        #endregion
-    
+        #endregion Form_and_Design
 
         public static void tst()
         {
             var doubl = 2 + Protection.ConstantMutation.Runtime.NewArray.noisette.ToArray().Length;
-
         }
     }
 }

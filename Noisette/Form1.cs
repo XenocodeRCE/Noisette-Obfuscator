@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -129,7 +130,7 @@ namespace Noisette
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), @"¯\(ツ)/¯"); // because I trully doesn't care about your issue
+                MessageBox.Show(@"¯\(ツ)/¯"); // because I trully doesn't care about your issue
 
                 //
                 textBox0.Visible = true;
@@ -213,8 +214,7 @@ namespace Noisette
 
         public static void tst()
         {
-            bool test = false;
-            bool test2 = string.IsNullOrEmpty(string.Empty);
+            var doubl = 2 + Protection.ConstantMutation.Runtime.NewArray.noisette.ToArray().Length;
 
         }
     }

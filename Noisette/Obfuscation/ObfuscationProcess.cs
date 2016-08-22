@@ -2,6 +2,7 @@
 using dnlib.DotNet.Writer;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Noisette.Obfuscation
 {
@@ -27,8 +28,10 @@ namespace Noisette.Obfuscation
             //Renaming
             Protection.Renaming.RenamingProtection RP = new Protection.Renaming.RenamingProtection(_module);
             RP.RenameModule();
+            //Inject Antitamper class
+            Protection.AntiTampering.AntiTamperingProtection ATP = new Protection.AntiTampering.AntiTamperingProtection(_module);
+            ATP.Process();
 
-            //Prepare our mdulewriter for urther usage
             //Melt Constant
             //Protection.ConstantMelting.ConstantMeltingProtection.MeltConstant(module);
             ////outline constant
@@ -36,18 +39,21 @@ namespace Noisette.Obfuscation
             ////Mutate Constant
             //Protection.ConstantMutation.ConstantMutationProtection.MutateConstant(module);
 
-            //Inject Antitamper class
-            ////Protection.AntiTampering.AntiTamperingProtection.AddCall(module);
             //invalid metadata
             //Protection.InvalidMetadata.InvalidMD.InsertInvalidMetadata(module);
             //todo : something is wrong
 
-            //Save assembly
-            Core.Property.opts.Logger = DummyLogger.NoThrowInstance;
-            //todo : make a propre saving function because now its ridiculous
-            _module.Write(_module.Location + "_protected.exe", Core.Property.opts);
+            SaveAssembly();
+
             //post-stage antitamper
-            //Protection.AntiTampering.AntiTamperingProtection.Md5(module.Location + "_protected.exe");
+            //todo : make a proper post-process class
+            Protection.AntiTampering.AntiTamperingProtection.Md5(Path.GetDirectoryName(_module.Location) + @"\" + Path.GetFileNameWithoutExtension(_module.Location) + "_nutsed.exe");
+        }
+
+        public void SaveAssembly()
+        {
+            Core.Property.opts.Logger = DummyLogger.NoThrowInstance;
+            _module.Write(Path.GetDirectoryName(_module.Location) + @"\" + Path.GetFileNameWithoutExtension(_module.Location) + "_nutsed.exe", Core.Property.opts);
         }
     }
 }

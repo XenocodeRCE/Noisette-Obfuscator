@@ -1,9 +1,5 @@
 ﻿using dnlib.DotNet;
 using dnlib.DotNet.Writer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Noisette.Obfuscation
 {
@@ -19,17 +15,18 @@ namespace Noisette.Obfuscation
             Core.Property.opts = new ModuleWriterOptions(module);
             //Melt Constant
             Protection.ConstantMelting.ConstantMeltingProtection.MeltConstant(module);
-            //Mutate Constant
-            Protection.ConstantMutation.ConstantMutationProtection.MutateConstant(module);
             //outline constant
             Protection.ConstantOutlinning.ConstantOutlinningProtection.OutlineConstant(module);
+            //Mutate Constant
+            Protection.ConstantMutation.ConstantMutationProtection.MutateConstant(module);
 
             //Inject Antitamper class
             Protection.AntiTampering.AntiTamperingProtection.AddCall(module);
             //rename all
             Protection.Renaming.RenamingProtection.RenameModule(module);
             //invalid metadata
-            Protection.InvalidMetadata.InvalidMD.InsertInvalidMetadata(module);
+            //Protection.InvalidMetadata.InvalidMD.InsertInvalidMetadata(module);
+            //todo : something is wrong
 
             //Save assembly
             Core.Property.opts.Logger = DummyLogger.NoThrowInstance;

@@ -66,6 +66,8 @@
     <Compile Include="Protection\AntiTampering\AntiTamperingProtection.cs" />
     <Compile Include="Protection\AntiTampering\EOFAntitamp.cs" />
     <Compile Include="Protection\AntiTampering\Inject!Helper.cs" />
+    <Compile Include="Protection\ConstantDecomposition\ConstantDecompositionProtection.cs" />
+    <Compile Include="Protection\ConstantDecomposition\Decompositor\DecompositorProcess.cs" />
     <Compile Include="Protection\ConstantMelting\ConstantMeltingProtection.cs" />
     <Compile Include="Protection\ConstantMutation\ConstantMutationProtection.cs" />
     <Compile Include="Protection\ConstantMutation\Runtime\CollatzConjecture.cs" />

@@ -97,7 +97,7 @@ namespace Noisette
                 text2 = text2.ToLower();
                 if (text2 != ".exe" && text2 != ".dll") return;
                 //Activate();
-
+                //tst();
                 textBox1.Text = text;
                 Core.Property.module = ModuleDefMD.Load(textBox1.Text);
 
@@ -200,7 +200,8 @@ namespace Noisette
 
         public static void tst()
         {
-            var doubl = 2 + Protection.ConstantMutation.Runtime.NewArray.noisette.ToArray().Length;
+            string a = "dzf&zR:2'>TxSvZCXSJiH@cALL<gY`m3S\\&s|G=(B&Q'L=,x%";
+            int arg_DB_0 = (a == "dzf&zR:2'>TxSvZCXSJiH@cALL<gY`m3S\\&s|G=(B&Q'L=,x%") ? 123 : 456;
         }
     }
 }

@@ -20,14 +20,14 @@ namespace Noisette.Protection.InvalidMetadata
         {
             ModuleDef manifestModule = asm.ManifestModule;
             manifestModule.Mvid = null;
-            manifestModule.Name = "";
-            asm.ManifestModule.Import(new FieldDefUser(""));
+            manifestModule.Name = Noisette.Protection.Renaming.RenamingProtection.GenerateNewName();
+            asm.ManifestModule.Import(new FieldDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName()));
             foreach (TypeDef current in manifestModule.Types)
             {
                 if (current.IsGlobalModuleType) continue;
-                TypeDef typeDef = new TypeDefUser("");
+                TypeDef typeDef = new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName());
                 typeDef.Methods.Add(new MethodDefUser());
-                typeDef.NestedTypes.Add(new TypeDefUser(""));
+                typeDef.NestedTypes.Add(new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName()));
                 MethodDef item = new MethodDefUser();
                 typeDef.Methods.Add(item);
                 current.NestedTypes.Add(typeDef);
@@ -38,6 +38,10 @@ namespace Noisette.Protection.InvalidMetadata
                 {
                     //If method has reflection assembly references
                     if (Core.Property.ContainsReflectionReference.Contains(current2)) continue;
+                    if (current2.IsConstructor) continue;
+                    if (!current2.HasBody) continue;
+                    if (current2.FullName.Contains("My.")) continue; //VB gives cancer anyway
+
                     if (current2.Body != null)
                     {
                         current2.Body.SimplifyBranches();
@@ -67,6 +71,7 @@ namespace Noisette.Protection.InvalidMetadata
                             current2.Body.Instructions.Insert(11, new Instruction(OpCodes.Ret));
                             current2.Body.Instructions.Insert(12, new Instruction(OpCodes.Calli));
                             current2.Body.Instructions.Insert(13, new Instruction(OpCodes.Sizeof, operand));
+                            current2.Body.Instructions.Insert(14, new Instruction(OpCodes.Nop));
                             current2.Body.Instructions.Insert(current2.Body.Instructions.Count, instruction2);
                             current2.Body.Instructions.Insert(current2.Body.Instructions.Count, new Instruction(OpCodes.Stloc, local2));
                             current2.Body.Instructions.Insert(current2.Body.Instructions.Count, new Instruction(OpCodes.Br, instruction3));
@@ -87,12 +92,12 @@ namespace Noisette.Protection.InvalidMetadata
                     }
                 }
             }
-            TypeDef typeDef2 = new TypeDefUser("<<EMPTY_NAMES>>"); // name cannot be null
-            FieldDef item2 = new FieldDefUser("Noisette", new FieldSig(manifestModule.Import(typeof(N0isette)).ToTypeSig()));
+            TypeDef typeDef2 = new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName()); // name cannot be null
+            FieldDef item2 = new FieldDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName(), new FieldSig(manifestModule.Import(typeof(N0isette)).ToTypeSig()));
             typeDef2.Fields.Add(item2);
             typeDef2.BaseType = manifestModule.Import(typeof(N0isette));
             manifestModule.Types.Add(typeDef2);
-            TypeDef typeDef3 = new TypeDefUser("");
+            TypeDef typeDef3 = new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName());
             typeDef3.IsInterface = true;
             typeDef3.IsSealed = true;
             manifestModule.Types.Add(typeDef3);

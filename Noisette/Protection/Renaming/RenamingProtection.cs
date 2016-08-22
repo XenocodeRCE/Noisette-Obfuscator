@@ -1,19 +1,19 @@
-﻿using System;
+﻿using dnlib.DotNet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using dnlib.DotNet;
 
 namespace Noisette.Protection.Renaming
 {
-    class RenamingProtection
+    public static class RenamingProtection
     {
+        public static Random random = new Random();
+
         public static void RenameModule(ModuleDefMD module)
         {
             List<String> Methname = new List<string>(Noisette.Renaming.Method1);
             List<String> Typename = new List<string>(Noisette.Renaming.Type1);
-
-            Random random = new Random();
 
             foreach (TypeDef type in module.Types)
             {
@@ -57,8 +57,12 @@ namespace Noisette.Protection.Renaming
                     field.Name = new_name_fields;
                 }
             }
+        }
 
-
+        public static string GenerateNewName()
+        {
+            List<String> Methname = new List<string>(Noisette.Renaming.Method1);
+            return Methname[random.Next(0, Methname.Count)];
         }
     }
 }

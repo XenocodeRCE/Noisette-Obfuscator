@@ -1,5 +1,6 @@
 ﻿using dnlib.DotNet;
 using dnlib.DotNet.Writer;
+using Noisette.Obfuscation;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -99,13 +100,12 @@ namespace Noisette
                 //Activate();
                 //tst();
                 textBox1.Text = text;
-                Core.Property.module = ModuleDefMD.Load(textBox1.Text);
 
                 logbox.AppendText("---------------------------" + Environment.NewLine);
-                logbox.AppendText("Obfuscation process started on " + Core.Property.module.Name + Environment.NewLine);
                 logbox.AppendText("---------------------------" + Environment.NewLine);
 
-                Obfuscation.ObfuscationProcess.DoObfusction(Core.Property.module);
+                ObfuscationProcess obf = new Obfuscation.ObfuscationProcess(ModuleDefMD.Load(textBox1.Text));
+                obf.DoObfusction();
 
                 logbox.AppendText("Done ! :)" + Environment.NewLine);
 

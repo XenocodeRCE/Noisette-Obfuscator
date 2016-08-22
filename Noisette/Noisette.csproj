@@ -54,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Helper.cs" />
+    <Compile Include="Helper\SafeRandom.cs" />
+    <Compile Include="Obfuscation\ObfuscationAnalyzer.cs" />
+    <Compile Include="Obfuscation\RenameAnalyzer.cs" />
     <Compile Include="Obfuscation\ObfuscationProcess.cs" />
     <Compile Include="Core\Property.cs" />
     <Compile Include="Form1.cs">
@@ -62,7 +65,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Obfuscation\PreProcessing.cs" />
     <Compile Include="Protection\AntiTampering\AntiTamperingProtection.cs" />
     <Compile Include="Protection\AntiTampering\EOFAntitamp.cs" />
     <Compile Include="Protection\AntiTampering\Inject!Helper.cs" />

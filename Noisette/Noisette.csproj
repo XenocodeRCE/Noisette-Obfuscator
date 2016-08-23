@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Helper.cs" />
+    <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Helper\SafeRandom.cs" />
     <Compile Include="Obfuscation\ObfuscationAnalyzer.cs" />
     <Compile Include="Obfuscation\RenameAnalyzer.cs" />

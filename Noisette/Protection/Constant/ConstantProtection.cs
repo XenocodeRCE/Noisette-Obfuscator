@@ -140,6 +140,14 @@ namespace NoisetteCore.Protection.Constant
             instr.Insert(i + 7, Instruction.Create(OpCodes.Br_S, instr[i + 8]));
 
             instr.RemoveAt(i + 10);
+
+            if (ProxyMethodConst.Contains(method))
+            {
+                var last = method.Body.Instructions.Count;
+                if (!instr[last - 2].IsLdloc()) return;
+                instr[last - 2].OpCode = OpCodes.Ldloc_S;
+                instr[last - 2].Operand = new_local2;
+            }
         }
 
         public void ReplaceValue(MethodDef method, int i)

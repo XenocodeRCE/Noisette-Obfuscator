@@ -19,6 +19,9 @@
 You can download compiled version of Noisette for Windows XP and above from https://github.com/XenocodeRCE/Noisette-Obfuscator/releases. The app is currently in its pre-release stage, so it contains bugs and error. Confirmed to be working on both C# and VB.NET target, as that's what the developers mostly code in.
 
 ## How do I test it?
+<p align="center">
+  <img src="http://i.imgur.com/xjexOy5.gif" alt="Noisette's GUI"/>
+</p>
 Start **Noisette.exe**, drag and drop a .NET file on it, and magic should happend. It will create a %yourfile%_protected output in the same folder.
 
 ## What features does it have?

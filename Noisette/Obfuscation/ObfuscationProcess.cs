@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Noisette.Obfuscation
 {
-    internal class ObfuscationProcess
+    public class ObfuscationProcess
     {
         public ModuleDefMD _module;
 

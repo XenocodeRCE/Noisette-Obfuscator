@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("An assembly obfuscator for .NET files")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Noisette")]
+[assembly: AssemblyProduct("NoisetteCore")]
 [assembly: AssemblyCopyright("GNU")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

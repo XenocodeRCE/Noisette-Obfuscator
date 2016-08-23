@@ -1,10 +1,11 @@
 ﻿using dnlib.DotNet;
 using dnlib.DotNet.Writer;
+using Noisette.Obfuscation;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Noisette.Obfuscation
+namespace NoisetteCore.Obfuscation
 {
     public class ObfuscationProcess
     {
@@ -31,6 +32,13 @@ namespace Noisette.Obfuscation
         public void DoObfusction()
         {
             CH.Debug("Starting the Obfusction routine");
+
+            CH.Debug("Obfuscating Constants ...");
+
+            //Constants
+            NoisetteCore.Protection.Constant.ConstantProtection CP =
+                new NoisetteCore.Protection.Constant.ConstantProtection(_module);
+            CP.DoProcess();
 
             //Renaming
             Protection.Renaming.RenamingProtection RP = new Protection.Renaming.RenamingProtection(_module);

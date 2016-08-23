@@ -1,11 +1,11 @@
 ﻿using dnlib.DotNet;
-using Noisette.Helper;
+using NoisetteCore.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Noisette.Protection.Renaming
+namespace NoisetteCore.Protection.Renaming
 {
     internal class RenamingProtection
     {
@@ -26,7 +26,7 @@ namespace Noisette.Protection.Renaming
         public static string GenerateNewName()
         {
             SafeRandom random = new SafeRandom();
-            List<String> Methname = new List<string>(Noisette.Renaming.Method1);
+            List<String> Methname = new List<string>(NoisetteCore.Renaming.Method1);
             return Methname[random.Next(0, Methname.Count)];
         }
     }

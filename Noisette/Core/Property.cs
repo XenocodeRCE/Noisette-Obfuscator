@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Noisette.Core
+namespace NoisetteCore.Core
 {
     /// <summary>
     ///     Provide every used fields and other needed ojects

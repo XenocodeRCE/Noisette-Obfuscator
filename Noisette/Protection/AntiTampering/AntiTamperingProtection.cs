@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Noisette.Protection.AntiTampering
+namespace NoisetteCore.Protection.AntiTampering
 {
     public class AntiTamperingProtection
     {

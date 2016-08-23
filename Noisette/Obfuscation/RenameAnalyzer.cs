@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Noisette.Obfuscation
+namespace NoisetteCore.Obfuscation
 {
     internal class RenameAnalyzer
     {

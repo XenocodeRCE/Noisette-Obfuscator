@@ -1,12 +1,11 @@
-﻿using System;
+﻿using dnlib.DotNet;
+using dnlib.DotNet.Emit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using dnlib.DotNet;
-using dnlib.DotNet.Emit;
-using Noisette.Core;
 
-namespace Noisette.Protection.ConstantMelting
+namespace NoisetteCore.Protection.ConstantMelting
 {
     public static class ConstantMeltingProtection
     {

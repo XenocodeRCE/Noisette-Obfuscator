@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Noisette.Protection.StringEncoding
+namespace NoisetteCore.Protection.StringEncoding
 {
     class StringEncodingProtection
     {

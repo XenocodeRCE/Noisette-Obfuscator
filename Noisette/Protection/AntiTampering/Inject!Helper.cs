@@ -5,7 +5,7 @@ using System.Text;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 
-namespace Noisette.Protection.AntiTampering
+namespace NoisetteCore.Protection.AntiTampering
 {
     class Inject_Helper
     {

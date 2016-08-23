@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Noisette.Helper
+namespace NoisetteCore.Helper
 {
     public class SafeRandom : Random
     {

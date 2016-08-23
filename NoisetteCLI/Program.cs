@@ -27,8 +27,8 @@ namespace NoisetteCLI
                 {
                     var filename = args[0];
                     Console.WriteLine("[" + DateTime.Now + "] Reading file " + Path.GetFileNameWithoutExtension(filename));
-                    Noisette.Obfuscation.ObfuscationProcess obf =
-                        new Noisette.Obfuscation.ObfuscationProcess(ModuleDefMD.Load(filename));
+                    NoisetteCore.Obfuscation.ObfuscationProcess obf =
+                        new NoisetteCore.Obfuscation.ObfuscationProcess(ModuleDefMD.Load(filename));
                     obf.DoObfusction();
                 }
             }

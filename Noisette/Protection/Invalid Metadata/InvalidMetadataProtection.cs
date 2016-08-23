@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Noisette.Protection.InvalidMetadata
+namespace NoisetteCore.Protection.InvalidMetadata
 {
     public static class InvalidMD
     {
@@ -20,14 +20,14 @@ namespace Noisette.Protection.InvalidMetadata
         {
             ModuleDef manifestModule = asm.ManifestModule;
             manifestModule.Mvid = null;
-            manifestModule.Name = Noisette.Protection.Renaming.RenamingProtection.GenerateNewName();
-            asm.ManifestModule.Import(new FieldDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName()));
+            manifestModule.Name = Renaming.RenamingProtection.GenerateNewName();
+            asm.ManifestModule.Import(new FieldDefUser(Renaming.RenamingProtection.GenerateNewName()));
             foreach (TypeDef current in manifestModule.Types)
             {
                 if (current.IsGlobalModuleType) continue;
-                TypeDef typeDef = new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName());
+                TypeDef typeDef = new TypeDefUser(Renaming.RenamingProtection.GenerateNewName());
                 typeDef.Methods.Add(new MethodDefUser());
-                typeDef.NestedTypes.Add(new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName()));
+                typeDef.NestedTypes.Add(new TypeDefUser(Renaming.RenamingProtection.GenerateNewName()));
                 MethodDef item = new MethodDefUser();
                 typeDef.Methods.Add(item);
                 current.NestedTypes.Add(typeDef);
@@ -92,12 +92,12 @@ namespace Noisette.Protection.InvalidMetadata
                     }
                 }
             }
-            TypeDef typeDef2 = new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName()); // name cannot be null
-            FieldDef item2 = new FieldDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName(), new FieldSig(manifestModule.Import(typeof(N0isette)).ToTypeSig()));
+            TypeDef typeDef2 = new TypeDefUser(Renaming.RenamingProtection.GenerateNewName()); // name cannot be null
+            FieldDef item2 = new FieldDefUser(Renaming.RenamingProtection.GenerateNewName(), new FieldSig(manifestModule.Import(typeof(N0isette)).ToTypeSig()));
             typeDef2.Fields.Add(item2);
             typeDef2.BaseType = manifestModule.Import(typeof(N0isette));
             manifestModule.Types.Add(typeDef2);
-            TypeDef typeDef3 = new TypeDefUser(Noisette.Protection.Renaming.RenamingProtection.GenerateNewName());
+            TypeDef typeDef3 = new TypeDefUser(Renaming.RenamingProtection.GenerateNewName());
             typeDef3.IsInterface = true;
             typeDef3.IsSealed = true;
             manifestModule.Types.Add(typeDef3);

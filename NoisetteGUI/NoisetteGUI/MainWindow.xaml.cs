@@ -1,18 +1,40 @@
 ﻿using dnlib.DotNet;
 using Noisette;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 namespace NoisetteGUI
 {
     public partial class MainWindow : Window
     {
+        BackgroundWorker bgWorker = new BackgroundWorker();
+        public static string _file;
+
+        Storyboard sb, sb2;
+        int error;
+        string errorMG;
+
         public MainWindow()
         {
             InitializeComponent();
+            bgWorker.DoWork +=
+         new DoWorkEventHandler(bgWorker_DoWork);
+
+            bgWorker.RunWorkerCompleted +=
+                new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
+            bgWorker.WorkerReportsProgress = true;
+
+            sb = this.FindResource("Rct_white_storyB") as Storyboard;
+
         }
 
+        public void startanimation()
+        {
+           
+        }
         private void ExitButton_MouseEnter(object sender, MouseButtonEventArgs e)
         {
             Environment.Exit(0);
@@ -33,23 +55,32 @@ namespace NoisetteGUI
 
         private void textBox_Drop(object sender, DragEventArgs e)
         {
+
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files == null || files.Length == 0) return;
             int error = 0;
             string errormsg = null;
-            try
-            {
-                var filename = files[0];
-                Noisette.Obfuscation.ObfuscationProcess Obf =
-                    new Noisette.Obfuscation.ObfuscationProcess(ModuleDefMD.Load(filename));
-                Obf.DoObfusction();
-            }
-            catch (Exception ex)
-            {
-                //something went wrong
-                error = 1;
-                errormsg = ex.ToString();
-            }
+            _file = files[0];
+            bgWorker.RunWorkerAsync();
+
+            this.Box_dropArea.Visibility = Visibility.Hidden;
+            this.textBlock.Visibility = Visibility.Hidden;
+            this.textBox.Visibility = Visibility.Hidden;
+
+            sb.Begin();
+            
+        }
+
+        public void OnDragOver(object sender, DragEventArgs e)
+
+        {
+            e.Effects = DragDropEffects.All;
+
+            e.Handled = true;
+        }
+
+        void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             if (error != 0)
             {
                 EndWindow end = new NoisetteGUI.EndWindow
@@ -60,7 +91,7 @@ namespace NoisetteGUI
                     Error_txt = { Visibility = Visibility.Visible }
                 };
                 end.LogTXT.Document.Blocks.Clear();
-                end.LogTXT.AppendText(errormsg);
+                end.LogTXT.AppendText(errorMG);
                 end.Show();
                 this.Hide();
             }
@@ -74,12 +105,22 @@ namespace NoisetteGUI
             }
         }
 
-        public void OnDragOver(object sender, DragEventArgs e)
 
+        void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Effects = DragDropEffects.All;
-
-            e.Handled = true;
+            try
+            {
+                NoisetteCore.Obfuscation.ObfuscationProcess Obf =
+                    new NoisetteCore.Obfuscation.ObfuscationProcess(ModuleDefMD.Load(_file));
+                Obf.DoObfusction();
+            }
+            catch (Exception ex)
+            {
+                //something went wrong
+                error = 1;
+                errorMG = ex.ToString();
+            }
+           
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using dnlib.DotNet;
-using Noisette.Core;
+using NoisetteCore.Obfuscation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +49,10 @@ namespace Noisette.Obfuscation
             if (item.FullName.Contains(".My")) //VB.NET gives Cancer and Ebola. Twice.
                 return false;
             if (ContainsReflection(item))
+                return false;
+            if (item.DeclaringType.IsGlobalModuleType)
+                return false;
+            if (item.FullName.Contains("<Module>"))
                 return false;
             return true;
         }

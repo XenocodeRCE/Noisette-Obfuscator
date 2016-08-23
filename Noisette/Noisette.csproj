@@ -70,9 +70,9 @@
     <Compile Include="Protection\ConstantDecomposition\Decompositor\DecompositorProcess.cs" />
     <Compile Include="Protection\ConstantMelting\ConstantMeltingProtection.cs" />
     <Compile Include="Protection\ConstantMutation\ConstantMutationProtection.cs" />
-    <Compile Include="Protection\ConstantMutation\Runtime\CollatzConjecture.cs" />
-    <Compile Include="Protection\ConstantMutation\Runtime\NewArray.cs" />
-    <Compile Include="Protection\ConstantOutlinning\ConstantOutlinningProtection.cs" />
+    <Compile Include="Protection\Constant\Runtime\CollatzConjecture.cs" />
+    <Compile Include="Protection\Constant\Runtime\NewArray.cs" />
+    <Compile Include="Protection\Constant\ConstantProtection.cs" />
     <Compile Include="Protection\Invalid Metadata\InvalidMetadataProtection.cs" />
     <Compile Include="Protection\Invalid Metadata\N0isette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

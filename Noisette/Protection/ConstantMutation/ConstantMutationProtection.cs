@@ -1,6 +1,5 @@
 ﻿using dnlib.DotNet;
 using dnlib.DotNet.Emit;
-using Noisette.Protection.AntiTampering;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Noisette.Protection.ConstantMutation
+namespace NoisetteCore.Protection.ConstantMutation
 {
     internal class ConstantMutationProtection
     {
@@ -33,12 +32,7 @@ namespace Noisette.Protection.ConstantMutation
     //    public static void CollatzConjecture()
     //    {
     //        //inject the collatz class
-    //        ModuleDefMD typeModule = ModuleDefMD.Load(typeof(Runtime.CollatzConjecture).Module);
-    //        MethodDef cctor = Core.Property.module.GlobalType.FindOrCreateStaticConstructor();
-    //        TypeDef typeDef = typeModule.ResolveTypeDef(MDToken.ToRID(typeof(Runtime.CollatzConjecture).MetadataToken));
-    //        IEnumerable<IDnlibDef> members = Inject_Helper.InjectHelper.Inject(typeDef, Core.Property.module.GlobalType,
-    //            Core.Property.module);
-    //        var init = (MethodDef)members.Single(method => method.Name == "ConjetMe");
+    //
 
     //        //check for ldci which value is '1'
     //        foreach (TypeDef type in Core.Property.module.Types)
@@ -47,21 +41,7 @@ namespace Noisette.Protection.ConstantMutation
     //            foreach (MethodDef method in type.Methods)
     //            {
     //                if (!method.HasBody) continue;
-    //                var instr = method.Body.Instructions;
-    //                for (int i = 0; i < instr.Count; i++)
-    //                {
-    //                    if (instr[i].IsLdcI4())
-    //                    {
-    //                        var value = instr[i].GetLdcI4Value();
-    //                        if (value == 1)
-    //                        {
-    //                            Random rnd = new Random();
-    //                            instr[i].Operand = rnd.Next(1, 15);
-    //                            method.Body.Instructions.Insert(i + 1, Instruction.Create(OpCodes.Call, init));
-    //                            i += 2;
-    //                        }
-    //                    }
-    //                }
+    //
     //            }
     //        }
     //    }
@@ -163,21 +143,7 @@ namespace Noisette.Protection.ConstantMutation
     //                        }
     //                        empty = true;
     //                        list = false;
-    //                        switch (rnd.Next(0, 2))
-    //                        {
-    //                            case 0:
-    //                            method.Body.Instructions.Insert(i + 1, Instruction.Create(OpCodes.Add));
-    //                            break;
 
-    //                            case 1:
-    //                            method.Body.Instructions.Insert(i + 1, Instruction.Create(OpCodes.Sub));
-    //                            break;
-    //                        }
-    //                        method.Body.Instructions.Insert(i + 1,
-    //                            Instruction.Create(OpCodes.Ldsfld,
-    //                                method.Module.Import((typeof(Type).GetField("EmptyTypes")))));
-    //                        method.Body.Instructions.Insert(i + 2, Instruction.Create(OpCodes.Ldlen));
-    //                        i += 5;
     //                        break;
 
     //                        case 1:
@@ -212,83 +178,7 @@ namespace Noisette.Protection.ConstantMutation
     //        }
     //    }
 
-    //    public static void InlineInteger()
-    //    {
-    //        Random random = new Random();
-
-    //        foreach (TypeDef type in Core.Property.module.Types)
-    //        {
-    //            if (type.IsGlobalModuleType) continue;
-    //            foreach (MethodDef method in type.Methods)
-    //            {
-    //                if (!method.HasBody) continue;
-    //                if (method.Body.HasExceptionHandlers) continue;
-    //                var instr = method.Body.Instructions;
-    //                for (int i = 0; i < instr.Count; i++)
-    //                {
-    //                    if (instr[i].IsLdcI4())
-    //                    {
-    //                        bool is_valid_inline = true;
-    //                        switch (random.Next(0, 2))
-    //                        {
-    //                            //true
-    //                            case 0:
-    //                            is_valid_inline = true;
-    //                            break;
-
-    //                            //false
-    //                            case 1:
-    //                            is_valid_inline = false;
-
-    //                            break;
-    //                        }
-    //                        var second_number = random.Next(0, 200);
-
-    //                        Local new_local = new Local(method.Module.CorLibTypes.String);
-    //                        method.Body.Variables.Add(new_local);
-    //                        Local new_local2 = new Local(method.Module.CorLibTypes.Int32);
-    //                        method.Body.Variables.Add(new_local2);
-    //                        Instruction copy_original = new Instruction(instr[i].OpCode, instr[i].Operand);
-    //                        var value = instr[i].GetLdcI4Value();
-    //                        var first_ldstr = Noisette.Protection.Renaming.RenamingProtection.GenerateNewName();
-    //                        var second_ldstr = first_ldstr;
-
-    //                        instr.Insert(i, Instruction.Create(OpCodes.Ldloc_S, new_local2));
-
-    //                        instr.Insert(i, Instruction.Create(OpCodes.Stloc_S, new_local2));
-    //                        if (is_valid_inline)
-    //                        {
-    //                            instr.Insert(i, Instruction.Create(OpCodes.Ldc_I4, value));
-    //                            instr.Insert(i, Instruction.Create(OpCodes.Ldc_I4, value + 1));
-    //                        }
-    //                        else
-    //                        {
-    //                            instr.Insert(i, Instruction.Create(OpCodes.Ldc_I4, value + 1));
-    //                            instr.Insert(i, Instruction.Create(OpCodes.Ldc_I4, value));
-    //                        }
-    //                        instr.Insert(i, Instruction.Create(OpCodes.Call, method.Module.Import(typeof(System.String).GetMethod("op_Equality", new Type[] { typeof(string), typeof(string) }))));
-    //                        instr.Insert(i, Instruction.Create(OpCodes.Ldstr, first_ldstr));
-    //                        instr.Insert(i, Instruction.Create(OpCodes.Ldloc_S, new_local));
-    //                        instr.Insert(i, Instruction.Create(OpCodes.Stloc_S, new_local));
-    //                        if (is_valid_inline)
-    //                        {
-    //                            instr.Insert(i, Instruction.Create(OpCodes.Ldstr, first_ldstr));
-    //                        }
-    //                        else
-    //                        {
-    //                            instr.Insert(i, Instruction.Create(OpCodes.Ldstr, Noisette.Protection.Renaming.RenamingProtection.GenerateNewName()));
-    //                        }
-    //                        instr.Insert(i + 5, Instruction.Create(OpCodes.Brtrue_S, instr[i + 6]));
-    //                        instr.Insert(i + 7, Instruction.Create(OpCodes.Br_S, instr[i + 8]));
-
-    //                        instr.RemoveAt(i + 10);
-
-    //                        i += 11;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
+    //
 
     //    public static void ListChecker()
     //    {

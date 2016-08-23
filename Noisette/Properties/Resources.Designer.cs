@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NoisetteCore.Properties {
+namespace NoisetteCoreCore.Properties {
     using System;
     
     

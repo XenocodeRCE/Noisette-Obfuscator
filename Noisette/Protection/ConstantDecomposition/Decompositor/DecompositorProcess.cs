@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Noisette.Protection.ConstantDecomposition.Decompositor
+namespace NoisetteCore.Protection.ConstantDecomposition.Decompositor
 {
     internal class DecompositorProcess
     {

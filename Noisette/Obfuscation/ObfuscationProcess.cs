@@ -15,6 +15,8 @@ namespace NoisetteCore.Obfuscation
 
         public static NoisetteCore.Helper.ConsoleHelper CH;
 
+        public static Protection.Renaming.RenamingProtection RP;
+
         // Core.Property.module =
         public ObfuscationProcess(ModuleDefMD module)
         {
@@ -32,6 +34,7 @@ namespace NoisetteCore.Obfuscation
         public void DoObfusction()
         {
             CH.Debug("Starting the Obfusction routine");
+            RP = new Protection.Renaming.RenamingProtection(_module);
 
             CH.Debug("Obfuscating Constants ...");
 
@@ -41,13 +44,12 @@ namespace NoisetteCore.Obfuscation
             CP.DoProcess();
 
             //Renaming
-            Protection.Renaming.RenamingProtection RP = new Protection.Renaming.RenamingProtection(_module);
             CH.Debug("Processing Renaming ...");
             RP.RenameModule();
             //Inject Antitamper class
             Protection.AntiTampering.AntiTamperingProtection ATP = new Protection.AntiTampering.AntiTamperingProtection(_module);
             CH.Debug("Processing AntiTamper ...");
-            ATP.Process();
+            //ATP.Process();
 
             //Melt Constant
             //Protection.ConstantMelting.ConstantMeltingProtection.MeltConstant(module);
@@ -68,7 +70,7 @@ namespace NoisetteCore.Obfuscation
             //todo : make a proper post-process class
 
             CH.Info("Injecting AntiTamper value");
-            Protection.AntiTampering.AntiTamperingProtection.Md5(Path.GetDirectoryName(_module.Location) + @"\" + Path.GetFileNameWithoutExtension(_module.Location) + "_nutsed.exe");
+            //Protection.AntiTampering.AntiTamperingProtection.Md5(Path.GetDirectoryName(_module.Location) + @"\" + Path.GetFileNameWithoutExtension(_module.Location) + "_nutsed.exe");
         }
 
         public void SaveAssembly()

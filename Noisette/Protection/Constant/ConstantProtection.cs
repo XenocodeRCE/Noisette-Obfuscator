@@ -3,6 +3,7 @@ using dnlib.DotNet.Emit;
 using NoisetteCore.Helper;
 using NoisetteCore.Obfuscation;
 using NoisetteCore.Protection.AntiTampering;
+using NoisetteCore.Protection.Renaming;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,11 @@ namespace NoisetteCore.Protection.Constant
         public List<MethodDef> ProxyMethodConst = new List<MethodDef>();
         public List<MethodDef> ProxyMethodStr = new List<MethodDef>();
 
+        public RenamingProtection RP;
+
         public ConstantProtection(ModuleDefMD module)
         {
+            RP = Obfuscation.ObfuscationProcess.RP;
             _module = module;
             random = new SafeRandom();
             InitializeCollatz();
@@ -53,6 +57,8 @@ namespace NoisetteCore.Protection.Constant
 
         public void ProcessProtection(MethodDef method)
         {
+            //running tests for the moment
+
             var instr = method.Body.Instructions;
             for (int i = 0; i < instr.Count; i++)
             {
@@ -62,23 +68,96 @@ namespace NoisetteCore.Protection.Constant
                     i += 10;
                 }
             }
+            StringHidding(method);
+            CtorCallProtection(method);
+            CallvirtProtection(method);
+            LdfldProtection(method);
         }
 
         public void ProtectIntegers(MethodDef method, int i)
         {
-            switch (random.Next(0, 3))
+            //InlineInteger(method, i);
+            ReplaceValue(method, i);
+            //OutelineValue(method, i);
+        }
+
+        public static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
+        public void StringHidding(MethodDef method)
+        {
+            if (method.DeclaringType.IsGlobalModuleType) return;
+            var instr = method.Body.Instructions;
+
+            for (int i = 0; i < instr.Count; i++)
             {
-                case 0:
-                OutelineValue(method, i);
-                break;
+                if (instr[i].OpCode == OpCodes.Ldstr)
+                {
+                    //if (instr[i + 1].OpCode == OpCodes.Call)
+                    //{
+                    var original_str_value = instr[i].Operand.ToString();
+                    var modulector = method.Module.GlobalType;
 
-                case 1:
-                ReplaceValue(method, i);
-                break;
+                    FieldDefUser original_str_value_field = new FieldDefUser("str" + instr[i].Operand + "_" + method.Name,
+                        new FieldSig(method.Module.CorLibTypes.String),
+                        dnlib.DotNet.FieldAttributes.Public | dnlib.DotNet.FieldAttributes.Static);
+                    modulector.Fields.Add(original_str_value_field);
 
-                case 2:
-                InlineInteger(method, i);
-                break;
+                    var cctor = modulector.FindOrCreateStaticConstructor();
+
+                    cctor.Body.Instructions.Insert(cctor.Body.Instructions.Count - 1,
+                        OpCodes.Ldstr.ToInstruction(original_str_value));
+                    cctor.Body.Instructions.Insert(cctor.Body.Instructions.Count - 1,
+                        OpCodes.Stsfld.ToInstruction(original_str_value_field));
+
+                    instr[i].OpCode = OpCodes.Ldsfld;
+                    instr[i].Operand = original_str_value_field;
+                    //instr.Insert(i - 1, .ToInstruction(original_str_value_field));
+
+                    //var md = (MemberRef)instr[i + 1].Operand;
+                    //if (md?.MethodSig.Params.Count == 1)
+                    //{
+                    //    var original_str_value = instr[i].Operand.ToString();
+                    //    var modulector = method.Module.GlobalType;
+
+                    //    FieldDefUser original_str_value_field = new FieldDefUser("str" + instr[i].Operand + "_" + method.Name,
+                    //        new FieldSig(method.Module.CorLibTypes.String),
+                    //        dnlib.DotNet.FieldAttributes.Public | dnlib.DotNet.FieldAttributes.Static);
+                    //    modulector.Fields.Add(original_str_value_field);
+
+                    //    var cctor = modulector.FindOrCreateStaticConstructor();
+
+                    //    cctor.Body.Instructions.Insert(cctor.Body.Instructions.Count - 1,
+                    //        OpCodes.Ldstr.ToInstruction(original_str_value));
+                    //    cctor.Body.Instructions.Insert(cctor.Body.Instructions.Count - 1,
+                    //        OpCodes.Stsfld.ToInstruction(original_str_value_field));
+
+                    //    Local local_str = new Local(method.Module.CorLibTypes.String);
+                    //    method.Body.Variables.Add(local_str);
+                    //    Local local_bool = new Local(method.Module.CorLibTypes.Boolean);
+                    //    method.Body.Variables.Add(local_bool);
+
+                    //    instr[i].OpCode = OpCodes.Ldloc_S;
+                    //    instr[i].Operand = local_str;
+
+                    //    instr.Insert(i - 1, OpCodes.Nop.ToInstruction());
+                    //    instr.Insert(i - 1, OpCodes.Ldloc_S.ToInstruction(local_bool));
+                    //    instr.Insert(i - 1, OpCodes.Stloc_S.ToInstruction(local_bool));
+                    //    instr.Insert(i - 1, Instruction.Create(OpCodes.Call, method.Module.Import(typeof(String).GetMethod("op_Equality", new Type[] { typeof(string), typeof(string) }))));
+                    //    instr.Insert(i - 1, OpCodes.Ldstr.ToInstruction("56s4df65sd4f6s5d4f")); // a differant string from original_str_value_field
+                    //    instr.Insert(i - 1, OpCodes.Ldloc_S.ToInstruction(local_str));
+                    //    instr.Insert(i - 1, OpCodes.Stloc_S.ToInstruction(local_str));
+                    //    instr.Insert(i - 1, OpCodes.Ldsfld.ToInstruction(original_str_value_field));
+                    //    instr.Insert(i + 6, OpCodes.Brfalse_S.ToInstruction(instr[i + 11]));
+                    //    i += 12;
+                    //}
+                    //}
+                    //instr.RemoveAt(i);
+                }
             }
         }
 
@@ -86,6 +165,18 @@ namespace NoisetteCore.Protection.Constant
         {
             if (method.DeclaringType.IsGlobalModuleType) return;
             var instr = method.Body.Instructions;
+
+            if (instr[i - 1].OpCode == OpCodes.Callvirt)
+            {
+                if (instr[i + 1].OpCode == OpCodes.Call)
+                {
+                    return;
+                }
+            }
+            if (instr[i + 4].IsBr())
+            {
+                return;
+            }
             bool is_valid_inline = true;
             switch (random.Next(0, 2))
             {
@@ -104,7 +195,7 @@ namespace NoisetteCore.Protection.Constant
             Local new_local2 = new Local(method.Module.CorLibTypes.Int32);
             method.Body.Variables.Add(new_local2);
             var value = instr[i].GetLdcI4Value();
-            var first_ldstr = Renaming.RenamingProtection.GenerateNewName();
+            var first_ldstr = RP.GenerateNewName(RP);
 
             instr.Insert(i, Instruction.Create(OpCodes.Ldloc_S, new_local2));
 
@@ -134,7 +225,7 @@ namespace NoisetteCore.Protection.Constant
             {
                 instr.Insert(i,
                     Instruction.Create(OpCodes.Ldstr,
-                        Renaming.RenamingProtection.GenerateNewName()));
+                        RP.GenerateNewName(RP)));
             }
             instr.Insert(i + 5, Instruction.Create(OpCodes.Brtrue_S, instr[i + 6]));
             instr.Insert(i + 7, Instruction.Create(OpCodes.Br_S, instr[i + 8]));
@@ -150,9 +241,118 @@ namespace NoisetteCore.Protection.Constant
             }
         }
 
+        public void CtorCallProtection(MethodDef method)
+        {
+            if (method.DeclaringType.IsGlobalModuleType) return;
+            var instr = method.Body.Instructions;
+
+            for (int i = 0; i < instr.Count; i++)
+            {
+                if (instr[i].OpCode == OpCodes.Call)
+                {
+                    if (instr[i].Operand.ToString().ToLower().Contains("void"))
+                    {
+                        if (instr[i - 1].IsLdarg())
+                        {
+                            Local new_local = new Local(method.Module.CorLibTypes.Int32);
+                            method.Body.Variables.Add(new_local);
+
+                            instr.Insert(i - 1, OpCodes.Ldc_I4.ToInstruction(random.Next()));
+                            instr.Insert(i, OpCodes.Stloc_S.ToInstruction(new_local));
+                            instr.Insert(i + 1, OpCodes.Ldloc_S.ToInstruction(new_local));
+                            instr.Insert(i + 2, OpCodes.Ldc_I4.ToInstruction(random.Next()));
+                            //---------------------------------------------------bne.un.s +3
+                            instr.Insert(i + 3, OpCodes.Ldarg_0.ToInstruction());
+                            //---------------------------------------------------br.s +4
+                            instr.Insert(i + 4, OpCodes.Nop.ToInstruction());
+                            //---------------------------------------------------br.s +1
+                            instr.Insert(i + 6, OpCodes.Nop.ToInstruction());
+
+                            instr.Insert(i + 3, new Instruction(OpCodes.Bne_Un_S, instr[i + 4]));
+                            instr.Insert(i + 5, new Instruction(OpCodes.Br_S, instr[i + 8]));
+                            instr.Insert(i + 8, new Instruction(OpCodes.Br_S, instr[i + 9]));
+                        }
+                    }
+                }
+            }
+        }
+
+        public void CallvirtProtection(MethodDef method)
+        {
+            if (method.DeclaringType.IsGlobalModuleType) return;
+            var instr = method.Body.Instructions;
+
+            for (int i = 0; i < instr.Count; i++)
+            {
+                if (instr[i].OpCode == OpCodes.Callvirt)
+                {
+                    if (instr[i].Operand.ToString().ToLower().Contains("int32"))
+                    {
+                        if (instr[i - 1].IsLdloc())
+                        {
+                            Local new_local = new Local(method.Module.CorLibTypes.Int32);
+                            method.Body.Variables.Add(new_local);
+
+                            instr.Insert(i - 1, OpCodes.Ldc_I4.ToInstruction(random.Next()));
+                            instr.Insert(i, OpCodes.Stloc_S.ToInstruction(new_local));
+                            instr.Insert(i + 1, OpCodes.Ldloc_S.ToInstruction(new_local));
+                            instr.Insert(i + 2, OpCodes.Ldc_I4.ToInstruction(random.Next()));
+                            //---------------------------------------------------bne.un.s +3
+                            instr.Insert(i + 3, OpCodes.Ldarg_0.ToInstruction());
+                            //---------------------------------------------------br.s +4
+                            instr.Insert(i + 4, OpCodes.Nop.ToInstruction());
+                            //---------------------------------------------------br.s +1
+                            instr.Insert(i + 6, OpCodes.Nop.ToInstruction());
+
+                            instr.Insert(i + 3, new Instruction(OpCodes.Beq_S, instr[i + 4]));
+                            instr.Insert(i + 5, new Instruction(OpCodes.Br_S, instr[i + 8]));
+                            instr.Insert(i + 8, new Instruction(OpCodes.Br_S, instr[i + 9]));
+                        }
+                    }
+                }
+            }
+        }
+
+        public void LdfldProtection(MethodDef method)
+        {
+            if (method.DeclaringType.IsGlobalModuleType) return;
+            var instr = method.Body.Instructions;
+
+            for (int i = 0; i < instr.Count; i++)
+            {
+                if (instr[i].OpCode == OpCodes.Ldfld)
+                {
+                    //if (instr[i].Operand.ToString().ToLower().Contains("class"))
+                    //{
+                    if (instr[i - 1].IsLdarg())
+                    {
+                        Local new_local = new Local(method.Module.CorLibTypes.Int32);
+                        method.Body.Variables.Add(new_local);
+
+                        instr.Insert(i - 1, OpCodes.Ldc_I4.ToInstruction(random.Next()));
+                        instr.Insert(i, OpCodes.Stloc_S.ToInstruction(new_local));
+                        instr.Insert(i + 1, OpCodes.Ldloc_S.ToInstruction(new_local));
+                        instr.Insert(i + 2, OpCodes.Ldc_I4.ToInstruction(random.Next()));
+                        //---------------------------------------------------bne.un.s +3
+                        instr.Insert(i + 3, OpCodes.Ldarg_0.ToInstruction());
+                        //---------------------------------------------------br.s +4
+                        instr.Insert(i + 4, OpCodes.Nop.ToInstruction());
+                        //---------------------------------------------------br.s +1
+                        instr.Insert(i + 6, OpCodes.Nop.ToInstruction());
+
+                        instr.Insert(i + 3, new Instruction(OpCodes.Beq_S, instr[i + 4]));
+                        instr.Insert(i + 5, new Instruction(OpCodes.Br_S, instr[i + 8]));
+                        instr.Insert(i + 8, new Instruction(OpCodes.Br_S, instr[i + 9]));
+                    }
+                    //}
+                }
+            }
+        }
+
         public void ReplaceValue(MethodDef method, int i)
         {
             var instr = method.Body.Instructions;
+            if (!instr[i].IsLdcI4()) return;
             var value = instr[i].GetLdcI4Value();
             if (value == 1)
                 CollatzConjecture(method, i);
@@ -171,7 +371,6 @@ namespace NoisetteCore.Protection.Constant
         public void EmptyTypes(MethodDef method, int i)
         {
             if (method.DeclaringType.IsGlobalModuleType) return;
-
             switch (random.Next(0, 2))
             {
                 case 0:

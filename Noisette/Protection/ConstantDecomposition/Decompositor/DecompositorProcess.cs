@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace NoisetteCore.Protection.ConstantDecomposition.Decompositor
 {
     internal class DecompositorProcess
     {
-        public static string[] Decompositor = new string[] { "add", "sub", "mul", "div", "pow", "xor", };
-
         public static string[] test_list = new string[] { };
 
         public DecompositorProcess()
@@ -17,12 +16,15 @@ namespace NoisetteCore.Protection.ConstantDecomposition.Decompositor
             list.Add("1");
             list.Add("2");
             test_list = list.ToArray();
+            tok_ = "123";
         }
 
-        public static void test()
+        public static string tok_;
+
+        public void test()
         {
-            var test = test_list.Contains<string>("2") ? 2 : 3;
-            var doub = test;
+            string test = tok_;
+            //var new_wstring = Assembly.GetExecutingAssembly().ManifestModule.ResolveField(0x0600003E).GetValue(typeof(string));
         }
     }
 }

@@ -10,8 +10,11 @@ namespace NoisetteCore.Obfuscation
     {
         private ModuleDefMD _module;
 
+        public NoisetteCore.Protection.Renaming.RenamingProtection RP;
+
         public RenameAnalyzer(ModuleDefMD module)
         {
+            RP = Obfuscation.ObfuscationProcess.RP;
             _module = module;
         }
 
@@ -32,7 +35,7 @@ namespace NoisetteCore.Obfuscation
         {
             if (CanRename(item))
             {
-                item.Name = Protection.Renaming.RenamingProtection.GenerateNewName();
+                item.Name = RP.GenerateNewName(RP);
             }
             ExplodeMember(item.Methods);
             ExplodeMember(item.Properties);
@@ -45,7 +48,7 @@ namespace NoisetteCore.Obfuscation
             {
                 if (CanRename(item))
                 {
-                    item.Name = Protection.Renaming.RenamingProtection.GenerateNewName();
+                    item.Name = RP.GenerateNewName(RP);
                 }
                 ExplodeMember(item.Parameters);
             }
@@ -55,7 +58,7 @@ namespace NoisetteCore.Obfuscation
         {
             foreach (var item in item_list.Where(CanRename))
             {
-                item.Name = Protection.Renaming.RenamingProtection.GenerateNewName();
+                item.Name = RP.GenerateNewName(RP); ;
             }
         }
 
@@ -63,7 +66,7 @@ namespace NoisetteCore.Obfuscation
         {
             foreach (var item in item_list.Where(CanRename))
             {
-                item.Name = Protection.Renaming.RenamingProtection.GenerateNewName();
+                item.Name = RP.GenerateNewName(RP); ;
             }
         }
 
@@ -71,7 +74,7 @@ namespace NoisetteCore.Obfuscation
         {
             foreach (var item in item_list.Where(CanRename))
             {
-                item.Name = Protection.Renaming.RenamingProtection.GenerateNewName();
+                item.Name = RP.GenerateNewName(RP); ;
             }
         }
 

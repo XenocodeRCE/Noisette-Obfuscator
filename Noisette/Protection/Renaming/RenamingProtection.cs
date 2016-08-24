@@ -7,12 +7,18 @@ using System.Text;
 
 namespace NoisetteCore.Protection.Renaming
 {
-    internal class RenamingProtection
+    public class RenamingProtection
     {
         public ModuleDefMD _module;
 
+        public ModuleDefMD mscorlib;
+
+        public List<string> UsedNames;
+
         public RenamingProtection(ModuleDefMD module)
         {
+            mscorlib = ModuleDefMD.Load(@"C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll");
+            UsedNames = new List<string>();
             _module = module;
         }
 
@@ -22,12 +28,19 @@ namespace NoisetteCore.Protection.Renaming
             RA.PerformAnalyze();
         }
 
-        //I don't think I really want to instance a new RenamingProtection each time
-        public static string GenerateNewName()
+        public string GenerateNewName(RenamingProtection RP)
         {
-            SafeRandom random = new SafeRandom();
-            List<String> Methname = new List<string>(NoisetteCore.Renaming.Method1);
-            return Methname[random.Next(0, Methname.Count)];
+            string str = null;
+            foreach (TypeDef type in RP.mscorlib.Types)
+            {
+                if (!RP.UsedNames.Contains(type.Name))
+                {
+                    RP.UsedNames.Add(type.Name);
+                    str = type.Name;
+                    break;
+                }
+            }
+            return str;
         }
     }
 }

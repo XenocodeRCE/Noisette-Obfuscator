@@ -49,7 +49,7 @@ namespace NoisetteCore.Obfuscation
             //Inject Antitamper class
             Protection.AntiTampering.AntiTamperingProtection ATP = new Protection.AntiTampering.AntiTamperingProtection(_module);
             CH.Debug("Processing AntiTamper ...");
-            //ATP.Process();
+            ATP.Process();
 
             //Melt Constant
             //Protection.ConstantMelting.ConstantMeltingProtection.MeltConstant(module);
@@ -70,7 +70,7 @@ namespace NoisetteCore.Obfuscation
             //todo : make a proper post-process class
 
             CH.Info("Injecting AntiTamper value");
-            //Protection.AntiTampering.AntiTamperingProtection.Md5(Path.GetDirectoryName(_module.Location) + @"\" + Path.GetFileNameWithoutExtension(_module.Location) + "_nutsed.exe");
+            Protection.AntiTampering.AntiTamperingProtection.Md5(Path.GetDirectoryName(_module.Location) + @"\" + Path.GetFileNameWithoutExtension(_module.Location) + "_nutsed.exe");
         }
 
         public void SaveAssembly()

@@ -25,3 +25,4 @@ C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.
 C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.csproj.GenerateResource.Cache
 C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.dll
 C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.pdb
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.csprojResolveAssemblyReference.cache

@@ -35,7 +35,18 @@ namespace NoisetteCore.Obfuscation
         {
             if (CanRename(item))
             {
-                item.Name = RP.GenerateNewName(RP);
+                string newGaneratedName = RP.GenerateNewName(RP);
+                string oldName = item.Name;
+                item.Name = newGaneratedName;
+
+                foreach (var resource in _module.Resources)
+                {
+
+                    if (resource.Name.Contains(oldName))
+                    {
+                        resource.Name = resource.Name.Replace(oldName, newGaneratedName);
+                    }
+                }
             }
             ExplodeMember(item.Methods);
             ExplodeMember(item.Properties);

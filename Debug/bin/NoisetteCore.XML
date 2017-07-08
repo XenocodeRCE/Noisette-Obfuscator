@@ -39,33 +39,33 @@
             <see cref="!:System.Windows.Forms"/> references
             </summary>
         </member>
-        <member name="T:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper">
+        <member name="T:NoisetteCore.Helper.Inject_Helper.InjectHelper">
             <summary>
                 Provides methods to inject a <see cref="T:dnlib.DotNet.TypeDef" /> into another module.
             </summary>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.Clone(dnlib.DotNet.TypeDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.Clone(dnlib.DotNet.TypeDef)">
             <summary>
                 Clones the specified origin TypeDef.
             </summary>
             <param name="origin">The origin TypeDef.</param>
             <returns>The cloned TypeDef.</returns>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.Clone(dnlib.DotNet.MethodDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.Clone(dnlib.DotNet.MethodDef)">
             <summary>
                 Clones the specified origin MethodDef.
             </summary>
             <param name="origin">The origin MethodDef.</param>
             <returns>The cloned MethodDef.</returns>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.Clone(dnlib.DotNet.FieldDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.Clone(dnlib.DotNet.FieldDef)">
             <summary>
                 Clones the specified origin FieldDef.
             </summary>
             <param name="origin">The origin FieldDef.</param>
             <returns>The cloned FieldDef.</returns>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.PopulateContext(dnlib.DotNet.TypeDef,NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.PopulateContext(dnlib.DotNet.TypeDef,NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext)">
             <summary>
                 Populates the context mappings.
             </summary>
@@ -73,28 +73,28 @@
             <param name="ctx">The injection context.</param>
             <returns>The new TypeDef.</returns>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.CopyTypeDef(dnlib.DotNet.TypeDef,NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.CopyTypeDef(dnlib.DotNet.TypeDef,NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext)">
             <summary>
                 Copies the information from the origin type to injected type.
             </summary>
             <param name="typeDef">The origin TypeDef.</param>
             <param name="ctx">The injection context.</param>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.CopyMethodDef(dnlib.DotNet.MethodDef,NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.CopyMethodDef(dnlib.DotNet.MethodDef,NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext)">
             <summary>
                 Copies the information from the origin method to injected method.
             </summary>
             <param name="methodDef">The origin MethodDef.</param>
             <param name="ctx">The injection context.</param>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.CopyFieldDef(dnlib.DotNet.FieldDef,NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.CopyFieldDef(dnlib.DotNet.FieldDef,NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext)">
             <summary>
                 Copies the information from the origin field to injected field.
             </summary>
             <param name="fieldDef">The origin FieldDef.</param>
             <param name="ctx">The injection context.</param>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.Copy(dnlib.DotNet.TypeDef,NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext,System.Boolean)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.Copy(dnlib.DotNet.TypeDef,NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext,System.Boolean)">
             <summary>
                 Copies the information to the injected definitions.
             </summary>
@@ -102,7 +102,7 @@
             <param name="ctx">The injection context.</param>
             <param name="copySelf">if set to <c>true</c>, copy information of <paramref name="typeDef" />.</param>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.Inject(dnlib.DotNet.TypeDef,dnlib.DotNet.ModuleDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.Inject(dnlib.DotNet.TypeDef,dnlib.DotNet.ModuleDef)">
             <summary>
                 Injects the specified TypeDef to another module.
             </summary>
@@ -110,7 +110,7 @@
             <param name="target">The target module.</param>
             <returns>The injected TypeDef.</returns>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.Inject(dnlib.DotNet.MethodDef,dnlib.DotNet.ModuleDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.Inject(dnlib.DotNet.MethodDef,dnlib.DotNet.ModuleDef)">
             <summary>
                 Injects the specified MethodDef to another module.
             </summary>
@@ -118,7 +118,7 @@
             <param name="target">The target module.</param>
             <returns>The injected MethodDef.</returns>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.Inject(dnlib.DotNet.TypeDef,dnlib.DotNet.TypeDef,dnlib.DotNet.ModuleDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.Inject(dnlib.DotNet.TypeDef,dnlib.DotNet.TypeDef,dnlib.DotNet.ModuleDef)">
             <summary>
                 Injects the members of specified TypeDef to another module.
             </summary>
@@ -127,51 +127,51 @@
             <param name="target">The target module.</param>
             <returns>Injected members.</returns>
         </member>
-        <member name="T:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext">
+        <member name="T:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext">
             <summary>
                 Context of the injection process.
             </summary>
         </member>
-        <member name="F:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.Map">
+        <member name="F:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.Map">
             <summary>
                 The mapping of origin definitions to injected definitions.
             </summary>
         </member>
-        <member name="F:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.OriginModule">
+        <member name="F:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.OriginModule">
             <summary>
                 The module which source type originated from.
             </summary>
         </member>
-        <member name="F:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.TargetModule">
+        <member name="F:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.TargetModule">
             <summary>
                 The module which source type is being injected to.
             </summary>
         </member>
-        <member name="F:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.importer">
+        <member name="F:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.importer">
             <summary>
                 The importer.
             </summary>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.#ctor(dnlib.DotNet.ModuleDef,dnlib.DotNet.ModuleDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.#ctor(dnlib.DotNet.ModuleDef,dnlib.DotNet.ModuleDef)">
             <summary>
-                Initializes a new instance of the <see cref="T:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext" /> class.
+                Initializes a new instance of the <see cref="T:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext" /> class.
             </summary>
             <param name="module">The origin module.</param>
             <param name="target">The target module.</param>
         </member>
-        <member name="P:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.Importer">
+        <member name="P:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.Importer">
             <summary>
                 Gets the importer.
             </summary>
             <value>The importer.</value>
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.Resolve(dnlib.DotNet.TypeDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.Resolve(dnlib.DotNet.TypeDef)">
             <inheritdoc />
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.Resolve(dnlib.DotNet.MethodDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.Resolve(dnlib.DotNet.MethodDef)">
             <inheritdoc />
         </member>
-        <member name="M:NoisetteCore.Protection.AntiTampering.Inject_Helper.InjectHelper.InjectContext.Resolve(dnlib.DotNet.FieldDef)">
+        <member name="M:NoisetteCore.Helper.Inject_Helper.InjectHelper.InjectContext.Resolve(dnlib.DotNet.FieldDef)">
             <inheritdoc />
         </member>
         <member name="M:Noisette.Obfuscation.ObfuscationAnalyzer.ContainsReflection(dnlib.DotNet.MethodDef)">

@@ -37,8 +37,9 @@
     <Reference Include="dnlib">
       <HintPath>..\Debug\bin\dnlib.dll</HintPath>
     </Reference>
-    <Reference Include="NoisetteCore">
-      <HintPath>..\Debug\bin\NoisetteCore.dll</HintPath>
+    <Reference Include="NoisetteCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\NoisetteCore.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

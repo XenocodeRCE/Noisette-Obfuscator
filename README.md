@@ -26,7 +26,8 @@ Start **Noisette.exe**, drag and drop a .NET file on it, and magic should happen
 
 ## What features does it have?
 For the moment, only a few, if you want a really strong ready-to-use Obfuscator have a look at ![NETGuard.io](http://netguard.io)
-* Constant Outlinning
+- Constant Outlinning
+- Strings Encoding
 - Strings Outlinning
 - Renaming
 - Invalid Metadata Injection

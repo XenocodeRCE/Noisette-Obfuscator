@@ -4,6 +4,7 @@ using Noisette.Obfuscation;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using NoisetteCore.Protection.StringEncoding;
 
 namespace NoisetteCore.Obfuscation
 {
@@ -34,6 +35,13 @@ namespace NoisetteCore.Obfuscation
         public void DoObfusction()
         {
             CH.Debug("Starting the Obfusction routine");
+
+            //String encoding
+            NoisetteCore.Protection.StringEncoding.StringEncodingProtection StrProtection =
+                new StringEncodingProtection(_module);
+            StrProtection.DoProcess();
+            CH.Debug("Processing String Encoding ...");
+
             RP = new Protection.Renaming.RenamingProtection(_module);
 
             CH.Debug("Obfuscating Constants ...");

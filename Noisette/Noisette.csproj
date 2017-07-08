@@ -59,13 +59,14 @@
     <Compile Include="Core\Helper.cs" />
     <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Helper\SafeRandom.cs" />
+    <Compile Include="Helper\StringDecodingHelper.cs" />
     <Compile Include="Obfuscation\ObfuscationAnalyzer.cs" />
     <Compile Include="Obfuscation\RenameAnalyzer.cs" />
     <Compile Include="Obfuscation\ObfuscationProcess.cs" />
     <Compile Include="Core\Property.cs" />
     <Compile Include="Protection\AntiTampering\AntiTamperingProtection.cs" />
     <Compile Include="Protection\AntiTampering\EOFAntitamp.cs" />
-    <Compile Include="Protection\AntiTampering\Inject!Helper.cs" />
+    <Compile Include="Helper\Inject!Helper.cs" />
     <Compile Include="Protection\ConstantDecomposition\ConstantDecompositionProtection.cs" />
     <Compile Include="Protection\ConstantDecomposition\Decompositor\DecompositorProcess.cs" />
     <Compile Include="Protection\ConstantMelting\ConstantMeltingProtection.cs" />

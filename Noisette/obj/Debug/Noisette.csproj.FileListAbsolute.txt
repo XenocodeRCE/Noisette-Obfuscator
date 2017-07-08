@@ -17,3 +17,11 @@ C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\No
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.dll
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.pdb
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.csprojResolveAssemblyReference.cache
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Debug\bin\NoisetteCore.dll.config
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Debug\bin\NoisetteCore.XML
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Debug\bin\NoisetteCore.dll
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Debug\bin\NoisetteCore.pdb
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.Properties.Resources.resources
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\Noisette.csproj.GenerateResource.Cache
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.dll
+C:\Users\Revolution\Desktop\Noisette-Obfuscator\Noisette\obj\Debug\NoisetteCore.pdb

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
 
-namespace NoisetteCore.Protection.AntiTampering
+namespace NoisetteCore.Helper
 {
     class Inject_Helper
     {

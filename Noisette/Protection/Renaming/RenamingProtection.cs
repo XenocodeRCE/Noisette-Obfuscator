@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace NoisetteCore.Protection.Renaming
 {
@@ -17,7 +19,9 @@ namespace NoisetteCore.Protection.Renaming
 
         public RenamingProtection(ModuleDefMD module)
         {
-            mscorlib = ModuleDefMD.Load(@"C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll");
+			var frameworkDirectory = RuntimeEnvironment.GetRuntimeDirectory();
+			var libraryFile = Path.Combine(frameworkDirectory, "mscorlib.dll");
+            mscorlib = ModuleDefMD.Load(libraryFile);
             UsedNames = new List<string>();
             _module = module;
         }

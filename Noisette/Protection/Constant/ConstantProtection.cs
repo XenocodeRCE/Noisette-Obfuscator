@@ -62,7 +62,7 @@ namespace NoisetteCore.Protection.Constant
             var instr = method.Body.Instructions;
             for (int i = 0; i < instr.Count; i++)
             {
-                if (instr[i].IsLdcI4())
+                if (instr[i].OpCode == OpCodes.Ldc_I4)
                 {
                     ProtectIntegers(method, i);
                     i += 10;
@@ -352,7 +352,7 @@ namespace NoisetteCore.Protection.Constant
         public void ReplaceValue(MethodDef method, int i)
         {
             var instr = method.Body.Instructions;
-            if (!instr[i].IsLdcI4()) return;
+            if (instr[i].OpCode != OpCodes.Ldc_I4) return;
             var value = instr[i].GetLdcI4Value();
             if (value == 1)
                 CollatzConjecture(method, i);
@@ -395,7 +395,7 @@ namespace NoisetteCore.Protection.Constant
                 for (int index = 0; index < method.Body.Instructions.Count; index++)
                 {
                     Instruction instr = method.Body.Instructions[index];
-                    if (instr.IsLdcI4())
+                    if (instr.OpCode == OpCodes.Ldc_I4)
                     {
                         MethodDef proxy_method = CreateReturnMethodDef(instr.GetLdcI4Value(), method);
                         method.DeclaringType.Methods.Add(proxy_method);

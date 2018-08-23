@@ -105,7 +105,7 @@ namespace NoisetteCore.Obfuscation
         {
             if (method.IsRuntimeSpecialName)
                 return false;
-            if (method.IsConstructor)
+            if (method.IsConstructor || method.IsStaticConstructor)
                 return false;
             if (method.DeclaringType.IsForwarder)
                 return false;

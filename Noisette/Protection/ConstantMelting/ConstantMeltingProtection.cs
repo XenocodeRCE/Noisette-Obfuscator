@@ -43,7 +43,7 @@ namespace NoisetteCore.Protection.ConstantMelting
                                 instr.Insert(i + (j + 1), Instruction.Create(OpCodes.Ldloc_S, new_local));
                             }
                         }
-                        if (instr[i].IsLdcI4())
+                        if (instr[i].OpCode == OpCodes.Ldc_I4)
                         {
                             Random rn = new Random();
                             for (int j = 1; j < rn.Next(16); j++)

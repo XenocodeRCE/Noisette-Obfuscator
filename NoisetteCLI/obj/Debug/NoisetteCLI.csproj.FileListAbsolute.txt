@@ -18,3 +18,12 @@ C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\De
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Debug\bin\NoisetteCLI.XML
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Debug\bin\NoisetteCLI.exe
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\Debug\bin\NoisetteCLI.pdb
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteCLI.exe.config
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteCLI.XML
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteCLI.exe
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteCLI.pdb
+C:\Users\Home\Desktop\Noisette\NoisetteCLI\obj\Debug\NoisetteCLI.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\Noisette\NoisetteCLI\obj\Debug\NoisetteCLI.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\Noisette\NoisetteCLI\obj\Debug\NoisetteCLI.csproj.CopyComplete
+C:\Users\Home\Desktop\Noisette\NoisetteCLI\obj\Debug\NoisetteCLI.exe
+C:\Users\Home\Desktop\Noisette\NoisetteCLI\obj\Debug\NoisetteCLI.pdb

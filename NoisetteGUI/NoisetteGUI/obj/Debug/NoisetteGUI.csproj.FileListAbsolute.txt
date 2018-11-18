@@ -39,3 +39,22 @@ C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\No
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.csproj.GenerateResource.Cache
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.exe
 C:\Users\XenocodeRE\Documents\Visual Studio 2015\Projects\Noisette-Obfuscator\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.pdb
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteGUI.exe.config
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteGUI.XML
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteGUI.exe
+C:\Users\Home\Desktop\Noisette\Debug\bin\NoisetteGUI.pdb
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.csprojAssemblyReference.cache
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\MainWindow.g.cs
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\EndWindow.g.cs
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\App.g.cs
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI_MarkupCompile.cache
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI_MarkupCompile.lref
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\MainWindow.baml
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\EndWindow.baml
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.g.resources
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.Properties.Resources.resources
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.csproj.GenerateResource.cache
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.csproj.CoreCompileInputs.cache
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.csproj.CopyComplete
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.exe
+C:\Users\Home\Desktop\Noisette\NoisetteGUI\NoisetteGUI\obj\Debug\NoisetteGUI.pdb

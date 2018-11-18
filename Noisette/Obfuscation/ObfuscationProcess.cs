@@ -17,6 +17,8 @@ namespace NoisetteCore.Obfuscation
 
         public static Protection.Renaming.RenamingProtection RP;
 
+        public static Protection.ControlFlow.ControlFlowProtection CF;
+
         // Core.Property.module =
         public ObfuscationProcess(ModuleDefMD module)
         {
@@ -36,6 +38,10 @@ namespace NoisetteCore.Obfuscation
             CH.Debug("Starting the Obfusction routine");
             RP = new Protection.Renaming.RenamingProtection(_module);
 
+            CH.Debug("Applying Control Flow Obfuscation ...");
+            CF = new Protection.ControlFlow.ControlFlowProtection(_module );
+            CF.Process();
+            
             CH.Debug("Obfuscating Constants ...");
 
             //Constants
